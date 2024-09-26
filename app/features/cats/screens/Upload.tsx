@@ -1,0 +1,120 @@
+import React, { useContext, useState } from "react";
+import { ActivityIndicator, Button, Image, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import * as ImagePicker from "expo-image-picker";
+import { StyleSheet } from "react-native";
+
+import { uploadStyles } from "./Upload.styles";
+import { CatsContextType, CatsContext } from "~services/cats/cats.context";
+
+// const CAT_API_KEY =
+//   "";
+
+export const UploadScreen: React.FC = () => {
+  const [selectedImage, setSelectedImage] = useState<null | string>(null);
+  const [uploadStatus, setUploadStatus] = useState("");
+  const { cats, isLoading, error } = useContext<CatsContextType>(CatsContext);
+
+  // Function to pick image from the device gallery
+  const pickImage = async () => {
+    let result = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (result.granted === false) {
+      alert("Permission to access media library is required!");
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log("pickerResult", pickerResult);
+
+    if (!pickerResult.canceled) {
+      setSelectedImage(pickerResult.assets[0].uri); // URI of the selected image
+    }
+  };
+
+  const uploadImage = async () => {
+    if (!selectedImage) {
+      alert("Please select an image first.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", {
+      uri: selectedImage,
+    });
+
+    console.log("formData", formData);
+
+    try {
+      const response = await fetch(
+        "https://api.thecatapi.com/v1/images/upload",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "x-api-key": CAT_API_KEY, // Pass the API key in the header
+          },
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      console.log("dataaaaa", data);
+
+      if (response.ok) {
+        setUploadStatus("Mission accomplished! Image ID: " + data.id);
+      } else {
+        setUploadStatus("WHO KNOWS!As a cat I dont care: " + data.message);
+      }
+    } catch (error) {
+      setUploadStatus("I told y ou i have to be a CAT: " + error.message);
+    }
+  };
+
+  console.log("CATSSSSS", cats);
+
+  console.log("selectedImage", selectedImage);
+  return (
+    <View style={styles.container}>
+      <Button title="Press here to add a new cat" onPress={pickImage} />
+      {selectedImage && (
+        <>
+          <View style={styles.container}>
+            <Image source={{ uri: selectedImage }} style={styles.image} />
+          </View>
+          <Button
+            title="First step: done. Do you want to make this cat famous? Press here. If Im not a cat don't select me and try again  "
+            onPress={uploadImage}
+          />
+        </>
+      )}
+      {uploadStatus ? <Text style={styles.status}>{uploadStatus}</Text> : null}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    // justifyContent: "center",
+    // alignItems: "center",
+  },
+  image: {
+    width: 200,
+    height: 200,
+    margin: 10,
+    borderRadius: 10,
+  },
+  status: {
+    marginTop: 20,
+    fontSize: 16,
+    color: "green",
+  },
+});
