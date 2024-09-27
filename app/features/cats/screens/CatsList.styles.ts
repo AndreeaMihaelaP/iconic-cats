@@ -5,17 +5,15 @@ const container: ViewStyle = {
   width: "100%",
   height: "100%",
   backgroundColor: colors.background,
-  paddingTop: 24,
-  alignContent: "center",
+  // paddingTop: 24,
 };
 
 const title: TextStyle = {
   fontSize: 32,
   fontWeight: "700",
-  color: "#1d1d1d",
-  marginBottom: 12,
-  marginTop: 12,
-  paddingLeft: 24,
+  color: "#ffff",
+  // marginTop: 12,
+  padding: 24,
 };
 
 const loadingContainer: ViewStyle = {

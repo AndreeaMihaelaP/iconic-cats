@@ -8,8 +8,8 @@ import { StyleSheet } from "react-native";
 import { uploadStyles } from "./Upload.styles";
 import { CatsContextType, CatsContext } from "~services/cats/cats.context";
 
-// const CAT_API_KEY =
-//   "";
+const CAT_API_KEY =
+  "live_QCGCfufAhs7kj2iWCxUEyRVITTkk91tDv0N9Sbm7ENZhZ7vVVZgTEAmNyoT9Sd5S";
 
 export const UploadScreen: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<null | string>(null);
@@ -48,6 +48,8 @@ export const UploadScreen: React.FC = () => {
     const formData = new FormData();
     formData.append("file", {
       uri: selectedImage,
+      name: "cat.jpg", // Name for the image file
+      type: "image/jpeg",
     });
 
     console.log("formData", formData);

@@ -3,32 +3,41 @@ import { Text, TouchableOpacity, View, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import { colors } from "~infrastructure/theme/colors";
+import styled from "styled-components/native";
 
 import { catListItemStyles } from "./CatListItem.styles";
+import HeartLikeV2 from "../screens/Heart";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const defaultImage = require("../../../infrastructure/assets/content-placeholder.png");
 
+const FavouriteButton = styled(TouchableOpacity)`
+  position: absolute;
+  top: 30px;
+  right: 15px;
+  z-index: 19;
+`;
+
 export const CatListItem = ({ item }) => {
-  const { url, title, isPathway, duration, description } = item;
+  // const { url = "", title, isPathway, duration, description } = item;
   console.log("ietm", item);
   return (
     <View>
       <TouchableOpacity>
         <View style={catListItemStyles.card}>
           <View style={catListItemStyles.cardTop}>
-            <View style={catListItemStyles.cardHeader}>
-              <View style={catListItemStyles.subHeaderItem}>
-                <Icon name="heart" size={20} color={colors.dark_gray} />
-              </View>
+            <FavouriteButton onPress={() => {}}>
+              {/* <Icon name="heart" size={30} color="white" /> */}
+              <HeartLikeV2 />
+            </FavouriteButton>
 
-              <Text>you like me - I like you too/ you broke my heart</Text>
-            </View>
             <Image
               alt="Cat"
               resizeMode="cover"
               defaultSource={defaultImage}
-              source={{ uri: url }}
+              source={{
+                uri: "https://cdn2.thecatapi.com/images/VqrImZd5_.jpg",
+              }}
               style={catListItemStyles.cardImg}
             />
           </View>
@@ -46,23 +55,8 @@ export const CatListItem = ({ item }) => {
                 />
               </View>
               <View style={catListItemStyles.subHeaderItem}>
-                <AntDesignIcon
-                  name="like1"
-                  size={40}
-                  color={colors.dark_gray}
-                />
-              </View>
-              <View style={catListItemStyles.subHeaderItem}>
-                <AntDesignIcon
-                  name="like1"
-                  size={40}
-                  color={colors.dark_gray}
-                />
-              </View>
-
-              <View style={catListItemStyles.subHeaderItem}>
                 <Text style={catListItemStyles.cardTitle}>
-                  Cat power score: 0
+                  CAT POWER SCORE: 1110
                 </Text>
               </View>
               <View style={catListItemStyles.subHeaderItem}>

@@ -1,5 +1,12 @@
 import React, { useContext, useState } from "react";
-import { ActivityIndicator, FlatList, Text } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Text,
+  SectionList,
+  View,
+  Button,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { UploadScreen } from "./Upload";
 
@@ -10,6 +17,7 @@ import Error from "~components/Error";
 import { CatListItem } from "../components/CatListItem";
 
 import { catsListStyles } from "./CatsList.styles";
+import { catListItemStyles } from "../components/CatListItem.styles";
 
 export const CatsListScreen: React.FC = () => {
   const { cats, isLoading, error } = useContext<CatsContextType>(CatsContext);
@@ -18,7 +26,7 @@ export const CatsListScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={catsListStyles.container}>
-      <Text style={catsListStyles.title}>Icon Cats</Text>
+      <Text style={catsListStyles.title}>Iconic Cats</Text>
       <UploadScreen />
       {/* TODO: if selected image hide the list to load again */}
       {isLoading ? (
@@ -30,12 +38,19 @@ export const CatsListScreen: React.FC = () => {
       {error ? (
         <Error message="An error occurred. Please try again later." />
       ) : (
-        <FlatList
-          contentContainerStyle={{ padding: 24, marginBottom: 90 }}
-          data={cats}
-          renderItem={({ item }) => <CatListItem item={item} />}
-          keyExtractor={(item) => item.id.toString()}
-        />
+        <>
+          <FlatList
+            // ListHeaderComponent={
+
+            // }
+            // numColumns={2}
+            horizontal
+            contentContainerStyle={{ padding: 14, gap: 24 }}
+            data={cats}
+            renderItem={({ item }) => <CatListItem item={item} />}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        </>
       )}
     </SafeAreaView>
   );

@@ -14,7 +14,7 @@ const card: ViewStyle = {
   borderColor: "black",
   borderRadius: 24,
   marginBottom: 24,
-  backgroundColor: colors.background,
+  backgroundColor: colors.white,
   padding: 10,
 };
 
@@ -29,7 +29,7 @@ const cardTop: ViewStyle = {
 
 const cardImg: ImageStyle = {
   width: "100%",
-  height: 340,
+  height: 380,
   borderTopLeftRadius: 24,
   borderTopRightRadius: 24,
 };
@@ -42,7 +42,6 @@ const cardBody: ViewStyle = {
 const cardSubHeader: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
-
   marginBottom: 12,
 };
 
