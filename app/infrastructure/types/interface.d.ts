@@ -1,6 +1,5 @@
 export interface CatsDataTransformed extends ImageDataRequest {
-  description: string;
-  isPathway: boolean;
+  originalFilename: string;
 }
 
 export interface ImageDataRequest {

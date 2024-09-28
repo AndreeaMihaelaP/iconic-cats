@@ -1,19 +1,31 @@
-import { TextStyle, ViewStyle } from "react-native";
+import { Dimensions, TextStyle, ViewStyle } from "react-native";
 import { colors } from "~infrastructure/theme/colors";
 
+const { width } = Dimensions.get("screen");
+
 const container: ViewStyle = {
-  width: "100%",
-  height: "100%",
-  backgroundColor: colors.background,
-  // paddingTop: 24,
+  flex: 1,
+  backgroundColor: colors.black,
+};
+
+const itemContainer: ViewStyle = {
+  width,
+  alignItems: "center",
+  justifyContent: "center",
+  shadowColor: "#000",
+  shadowRadius: 30,
+  shadowOffset: { height: 0, width: 0 },
+  shadowOpacity: 0.6,
+  elevation: 2,
+  padding: 24,
 };
 
 const title: TextStyle = {
   fontSize: 32,
-  fontWeight: "700",
-  color: "#ffff",
-  // marginTop: 12,
+  fontWeight: "600",
+  color: colors.white,
   padding: 24,
+  textTransform: "uppercase",
 };
 
 const loadingContainer: ViewStyle = {
@@ -24,6 +36,7 @@ const loadingContainer: ViewStyle = {
 
 export const catsListStyles = {
   container,
+  itemContainer,
   title,
   loadingContainer,
 };

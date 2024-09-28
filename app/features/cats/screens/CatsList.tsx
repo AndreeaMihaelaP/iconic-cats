@@ -1,34 +1,25 @@
-import React, { useContext, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  Text,
-  SectionList,
-  View,
-  Button,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { UploadScreen } from "./Upload";
+import React, { useContext } from "react";
+import { ActivityIndicator, View, StatusBar, Animated } from "react-native";
 
 import { CatsContextType, CatsContext } from "~services/cats/cats.context";
 
 import Error from "~components/Error";
+import { Background } from "../../../components/Background";
 
 import { CatListItem } from "../components/CatListItem";
+import { UploadScreen } from "./Upload";
 
 import { catsListStyles } from "./CatsList.styles";
-import { catListItemStyles } from "../components/CatListItem.styles";
 
 export const CatsListScreen: React.FC = () => {
   const { cats, isLoading, error } = useContext<CatsContextType>(CatsContext);
 
-  console.log("catsss", cats);
+  const scrollX = React.useRef(new Animated.Value(0)).current;
 
   return (
-    <SafeAreaView style={catsListStyles.container}>
-      <Text style={catsListStyles.title}>Iconic Cats</Text>
-      <UploadScreen />
-      {/* TODO: if selected image hide the list to load again */}
+    <View style={catsListStyles.container}>
+      <StatusBar hidden />
+      <Background cats={cats} scrollX={scrollX} />
       {isLoading ? (
         <ActivityIndicator
           size="large"
@@ -38,20 +29,27 @@ export const CatsListScreen: React.FC = () => {
       {error ? (
         <Error message="An error occurred. Please try again later." />
       ) : (
-        <>
-          <FlatList
-            // ListHeaderComponent={
-
-            // }
-            // numColumns={2}
-            horizontal
-            contentContainerStyle={{ padding: 14, gap: 24 }}
-            data={cats}
-            renderItem={({ item }) => <CatListItem item={item} />}
-            keyExtractor={(item) => item.id.toString()}
-          />
-        </>
+        <Animated.FlatList
+          data={cats}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            {
+              useNativeDriver: true,
+            }
+          )}
+          keyExtractor={(_, index) => index.toString()}
+          horizontal
+          pagingEnabled
+          renderItem={({ item }) => {
+            return (
+              <View style={catsListStyles.itemContainer}>
+                <CatListItem item={item} />
+              </View>
+            );
+          }}
+        />
       )}
-    </SafeAreaView>
+      <UploadScreen />
+    </View>
   );
 };

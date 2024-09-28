@@ -1,25 +1,14 @@
-import { ImageStyle, TextStyle, ViewStyle } from "react-native";
+import { Dimensions, ImageStyle, TextStyle, ViewStyle } from "react-native";
 import { colors } from "~infrastructure/theme/colors";
 
-const card: ViewStyle = {
-  elevation: 4,
-  shadowColor: colors.purple,
-  shadowOffset: {
-    width: 0,
-    height: 1,
-  },
-  shadowOpacity: 0.2,
-  shadowRadius: 1.41,
-  borderWidth: 1,
-  borderColor: "black",
-  borderRadius: 24,
-  marginBottom: 24,
-  backgroundColor: colors.white,
-  padding: 10,
-};
+const { width } = Dimensions.get("screen");
 
-const subHeaderItem: ViewStyle = {
-  marginEnd: 5,
+const imageW = width * 0.7;
+const imageH = imageW * 1.5;
+
+const card: ViewStyle = {
+  borderRadius: 24,
+  backgroundColor: colors.black,
 };
 
 const cardTop: ViewStyle = {
@@ -29,20 +18,15 @@ const cardTop: ViewStyle = {
 
 const cardImg: ImageStyle = {
   width: "100%",
-  height: 380,
-  borderTopLeftRadius: 24,
+  height: imageH,
   borderTopRightRadius: 24,
+  borderTopLeftRadius: 24,
 };
 
 const cardBody: ViewStyle = {
+  minWidth: 300,
   paddingVertical: 16,
   paddingHorizontal: 12,
-};
-
-const cardSubHeader: ViewStyle = {
-  flexDirection: "row",
-  alignItems: "center",
-  marginBottom: 12,
 };
 
 const cardHeader: ViewStyle = {
@@ -52,35 +36,47 @@ const cardHeader: ViewStyle = {
   marginBottom: 12,
 };
 
+const cardSubHeader: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  // marginBottom: 12,
+};
+
+const subHeaderItem: ViewStyle = {
+  flexDirection: "row",
+  padding: 5,
+};
+
 const cardTitle: TextStyle = {
-  fontSize: 15,
-  fontWeight: "500",
+  // fontSize: 15,
+  // fontWeight: "500",
   // color: colors.purple,
 };
 
-const cardDuration: TextStyle = {
+const cardScore: TextStyle = {
   fontSize: 16,
   fontWeight: "700",
-  color: colors.dark_gray,
+  color: colors.white,
 };
 
 const cardDescription: TextStyle = {
   fontSize: 15,
   letterSpacing: 0.25,
   lineHeight: 22,
-  fontWeight: "500",
-  color: colors.dark_gray,
+  fontWeight: "600",
+  color: colors.white,
+  paddingLeft: 5,
 };
 
 export const catListItemStyles = {
   card,
-  subHeaderItem,
   cardTop,
   cardImg,
   cardTitle,
   cardBody,
   cardHeader,
   cardSubHeader,
-  cardDuration,
+  subHeaderItem,
+  cardScore,
   cardDescription,
 };

@@ -1,5 +1,12 @@
 import React, { useContext, useState } from "react";
-import { ActivityIndicator, Button, Image, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Button,
+  Image,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import * as ImagePicker from "expo-image-picker";
@@ -7,10 +14,15 @@ import { StyleSheet } from "react-native";
 
 import { uploadStyles } from "./Upload.styles";
 import { CatsContextType, CatsContext } from "~services/cats/cats.context";
+import { MaterialIcons } from "@expo/vector-icons";
+import { catsListStyles } from "./CatsList.styles";
 
 const CAT_API_KEY =
   "live_QCGCfufAhs7kj2iWCxUEyRVITTkk91tDv0N9Sbm7ENZhZ7vVVZgTEAmNyoT9Sd5S";
 
+const _indicatorSize = 4;
+const _spacing = 14;
+const _buttonSize = 64;
 export const UploadScreen: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<null | string>(null);
   const [uploadStatus, setUploadStatus] = useState("");
@@ -85,7 +97,29 @@ export const UploadScreen: React.FC = () => {
   console.log("selectedImage", selectedImage);
   return (
     <View style={styles.container}>
-      <Button title="Press here to add a new cat" onPress={pickImage} />
+      <>
+        <Text style={catsListStyles.title}>Iconic Cats</Text>
+
+        <Pressable
+          onPress={() => {}}
+          style={{
+            position: "absolute",
+            bottom: _spacing * 1,
+            right: _spacing * 2,
+          }}>
+          <View
+            style={{
+              width: _buttonSize,
+              height: _buttonSize,
+              borderRadius: _buttonSize / 2,
+              backgroundColor: "#363636",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+            <MaterialIcons name="add" size={_buttonSize / 2} color="white" />
+          </View>
+        </Pressable>
+      </>
       {selectedImage && (
         <>
           <View style={styles.container}>

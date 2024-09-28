@@ -74,7 +74,6 @@ export default () => {
           );
         })}
       </View>
-      <Text style={catsListStyles.title}>iCONIC CATS</Text>
 
       <Animated.FlatList
         data={data}
@@ -99,6 +98,7 @@ export default () => {
                 shadowOffset: { height: 0, width: 0 },
                 shadowOpacity: 0.6,
                 elevation: 2,
+                marginTop: 20,
               }}>
               <CatListItem item={item} />
             </View>
