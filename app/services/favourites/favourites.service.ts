@@ -1,5 +1,4 @@
 import camelize from "camelize";
-import { LearningTypes } from "../../infrastructure/types/enums";
 
 import {
   ImageDataRequest,

@@ -3,7 +3,7 @@ import { ActivityIndicator, View, StatusBar, Animated } from "react-native";
 
 import { CatsContextType, CatsContext } from "~services/cats/cats.context";
 
-import Error from "~components/Error";
+import CustomError from "~components/CustomError";
 import { Background } from "../../../components/Background";
 
 import { CatListItem } from "../components/CatListItem";
@@ -27,8 +27,10 @@ export const CatsListScreen: React.FC = () => {
         />
       ) : null}
       {error ? (
-        <Error message="An error occurred. Please try again later." />
-      ) : (
+        <CustomError message="An error occurred. Please try again later." />
+      ) : null}
+
+      <>
         <Animated.FlatList
           data={cats}
           onScroll={Animated.event(
@@ -48,8 +50,8 @@ export const CatsListScreen: React.FC = () => {
             );
           }}
         />
-      )}
-      <UploadScreen />
+        <UploadScreen />
+      </>
     </View>
   );
 };

@@ -1,30 +1,47 @@
-import { TextStyle, ViewStyle } from "react-native";
+import { ImageStyle, TextStyle, ViewStyle } from "react-native";
 import { colors } from "~infrastructure/theme/colors";
 
+const _spacing = 14;
+const _buttonSize = 64;
+
 const container: ViewStyle = {
-  width: "100%",
-  height: "100%",
-  backgroundColor: colors.background,
-  paddingTop: 24,
+  position: "absolute",
+  bottom: _spacing * 1,
+  right: _spacing * 2,
 };
 
-const title: TextStyle = {
-  fontSize: 32,
-  fontWeight: "700",
-  color: "#1d1d1d",
-  marginBottom: 12,
-  marginTop: 12,
-  paddingLeft: 24,
-};
-
-const loadingContainer: ViewStyle = {
-  height: "90%",
-  alignItems: "center",
+const iconContainer: ViewStyle = {
+  width: _buttonSize,
+  height: _buttonSize,
+  borderRadius: _buttonSize / 2,
+  backgroundColor: colors.black,
   justifyContent: "center",
+  alignItems: "center",
+};
+
+const imageContainer: ViewStyle = {
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+};
+
+const image: ImageStyle = {
+  width: 200,
+  height: 200,
+  margin: 10,
+  borderRadius: 10,
+  padding: 50,
+};
+const status: TextStyle = {
+  padding: 20,
+  fontSize: 16,
+  color: colors.red,
 };
 
 export const uploadStyles = {
   container,
-  title,
-  loadingContainer,
+  iconContainer,
+  imageContainer,
+  image,
+  status,
 };

@@ -1,32 +1,38 @@
 import camelize from "camelize";
-import { LearningTypes } from "../../infrastructure/types/enums";
 
 import {
   ImageDataRequest,
   CatsDataTransformed,
-} from "../../infrastructure/types/interface";
+} from "~infrastructure/types/interface";
+import Constants from "expo-constants";
 
-const CAT_API_KEY =
-  "live_QCGCfufAhs7kj2iWCxUEyRVITTkk91tDv0N9Sbm7ENZhZ7vVVZgTEAmNyoT9Sd5S";
+const CAT_API_KEY = Constants.expoConfig?.extra?.catApiKey;
+const API_URL = Constants.expoConfig?.extra?.apiUrl;
+console.log("api rul", API_URL);
 
-export const uploadImageCatRequest = async (): Promise<ImageDataRequest> => {
+export const uploadImageCatRequest = async (
+  url: string
+): Promise<ImageDataRequest> => {
   const formData = new FormData();
-  // formData.append("file", {
-  //   uri: selectedImage,
-  // });
+
+  formData.append("file", {
+    uri: url,
+    name: "cat.jpg",
+    type: "image/jpeg",
+  });
 
   try {
-    const response = await fetch("https://api.thecatapi.com/v1/images/upload", {
+    const response = await fetch(`${API_URL}images/upload`, {
       method: "POST",
       headers: {
         "Content-Type": "multipart/form-data",
-        "x-api-key": CAT_API_KEY, // Pass the API key in the header
+        "x-api-key": `${CAT_API_KEY}`,
       },
       body: formData,
     });
 
     if (!response.ok) {
-      throw new Error("Error uploading the image");
+      throw new Error("Error uploading the image. Try again later!");
     }
 
     const data: ImageDataRequest = await response.json();
@@ -40,12 +46,11 @@ export const uploadImageCatRequest = async (): Promise<ImageDataRequest> => {
 export const getCatsDataRequest = async (): Promise<ImageDataRequest[]> => {
   try {
     const response = await fetch(
-      "https://api.thecatapi.com/v1/images/?limit=10&page=0&order=DESC",
+      `${API_URL}images/?limit=20&page=0&order=DESC`,
       {
         method: "GET",
         headers: {
-          "Content-Type": "multipart/form-data",
-          "x-api-key": CAT_API_KEY, // Pass the API key in the header
+          "x-api-key": `${CAT_API_KEY}`,
         },
       }
     );
@@ -64,8 +69,5 @@ export const getCatsDataRequest = async (): Promise<ImageDataRequest[]> => {
 export const catsDataTransform = (
   results: ImageDataRequest[] = []
 ): CatsDataTransformed[] => {
-  const mappedResults = results.map((item) => {
-    return { ...item };
-  });
-  return camelize(mappedResults);
+  return camelize(results);
 };

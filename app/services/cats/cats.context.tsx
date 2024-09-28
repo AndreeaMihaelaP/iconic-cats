@@ -1,24 +1,37 @@
 import React, { useState, createContext, useEffect } from "react";
 
-import { getCatsDataRequest, catsDataTransform } from "./cats.service";
+import {
+  getCatsDataRequest,
+  catsDataTransform,
+  uploadImageCatRequest,
+} from "./cats.service";
 import { CatsDataTransformed } from "~infrastructure/types/interface";
 
 export interface CatsContextType {
   cats: CatsDataTransformed[];
   isLoading: boolean;
   error: Error | null;
+  uploadStatus: string;
+  uploadCatImage: (selectedImage: string) => void;
 }
 
 export const CatsContext = createContext<CatsContextType>({
   cats: [],
   isLoading: false,
   error: null,
+  uploadStatus: "",
+  uploadCatImage: () => {},
 });
 
-export const CatsContextProvider = ({ children }) => {
+interface CatsContextProviderProps {
+  children: any;
+}
+
+export const CatsContextProvider = ({ children }: CatsContextProviderProps) => {
   const [cats, setCats] = useState<CatsDataTransformed[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState("");
 
   const getCats = async () => {
     setIsLoading(true);
@@ -31,7 +44,25 @@ export const CatsContextProvider = ({ children }) => {
       setCats(catsTransformed);
     } catch (error) {
       setIsLoading(false);
-      setError(error);
+      setError(error as any);
+    }
+  };
+
+  const uploadCatImage = async (selectedImage: string) => {
+    setIsLoading(true);
+    console.log("heyee");
+    try {
+      const uploadCatImageResponse = await uploadImageCatRequest(selectedImage);
+      console.log("uploadCatImageResponse", uploadCatImageResponse);
+
+      if (uploadCatImageResponse) {
+        getCats();
+      }
+
+      console.log("uploadCatImageResponse", uploadCatImageResponse);
+    } catch (error) {
+      setIsLoading(false);
+      setUploadStatus(error?.message);
     }
   };
 
@@ -45,6 +76,8 @@ export const CatsContextProvider = ({ children }) => {
         cats,
         isLoading,
         error,
+        uploadCatImage: uploadCatImage,
+        uploadStatus,
       }}>
       {children}
     </CatsContext.Provider>

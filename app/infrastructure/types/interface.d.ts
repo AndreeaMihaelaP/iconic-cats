@@ -1,5 +1,5 @@
 export interface CatsDataTransformed extends ImageDataRequest {
-  originalFilename: string;
+  originalFilename?: string;
 }
 
 export interface ImageDataRequest {
@@ -7,7 +7,7 @@ export interface ImageDataRequest {
   url: string;
   width: number;
   height: number;
-  original_filename: string;
+  original_filename?: string;
   pending: number;
   approved: number;
 }
