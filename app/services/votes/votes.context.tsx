@@ -29,7 +29,6 @@ export const VotesContextProvider = ({ children }) => {
 
   const vote = async (item: CatsDataTransformed, value: number) => {
     try {
-      console.log("HELLLLLO votttteeee", item, value);
       const response = await votingRequest(item.id, value);
       loadVotes();
     } catch (e) {}

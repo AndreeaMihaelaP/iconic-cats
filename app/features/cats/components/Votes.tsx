@@ -14,20 +14,18 @@ interface CatListItemProps {
 
 export const Votes = ({ item }: CatListItemProps) => {
   const { votes, scoreTheCat } = useContext(VotesContext);
+  const [voteCount, setVoteCount] = useState(0);
 
   const votesPerCat = votes.filter((vote) => vote?.imageId === item.id);
   console.log("votesPerCat ->>", votesPerCat);
-  console.log("votes", votes);
 
-  const countOfOnes = votesPerCat.filter((vote) => vote.value === 1).length;
+  const highestVote = votesPerCat.reduce((max, current) => {
+    return current.value > max.value ? current : max;
+  }, votesPerCat[0])?.value;
 
-  const countOfMinusOnes = votesPerCat.filter(
-    (vote) => vote.value === -1
-  ).length;
-
-  const score = countOfOnes - countOfMinusOnes;
-
-  console.log("score ===>", score);
+  useEffect(() => {
+    scoreTheCat(item, voteCount);
+  }, [voteCount]);
 
   return (
     <View style={catListItemStyles.cardHeader}>
@@ -36,18 +34,18 @@ export const Votes = ({ item }: CatListItemProps) => {
           name="like1"
           size={40}
           color={colors.white}
-          onPress={() => scoreTheCat(item, 1)}
+          onPress={() => setVoteCount(voteCount + 1)}
         />
         <View style={{ padding: 10 }}>
           <AntDesignIcon
             name="dislike1"
             size={20}
             color={colors.white}
-            onPress={() => scoreTheCat(item, -1)}
+            onPress={() => setVoteCount(voteCount - 1)}
           />
         </View>
       </View>
-      <Text style={catListItemStyles.cardScore}>Score: {score}</Text>
+      <Text style={catListItemStyles.cardScore}>Score: {highestVote}</Text>
     </View>
   );
 };
