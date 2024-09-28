@@ -1,52 +1,72 @@
 import React, { useState, createContext, useEffect } from "react";
-
-import { getCatsDataRequest, catsDataTransform } from "./favourites.service";
+import {
+  addImageToFavoritesRequest,
+  getFavoritesRequest,
+  removeImageToFavoritesRequest,
+} from "./favourites.service";
 import { CatsDataTransformed } from "~infrastructure/types/interface";
+import { catsDataTransform } from "~services/cats/cats.service";
 
-export interface CatsContextType {
-  cats: CatsDataTransformed[];
-  isLoading: boolean;
-  error: Error | null;
+export interface FavouritesContextType {
+  favourites: CatsDataTransformed[];
+  addToFavourites: (item: CatsDataTransformed) => void;
+  removeFromFavourites: (item: CatsDataTransformed) => void;
 }
 
-export const CatsContext = createContext<CatsContextType>({
-  cats: [],
-  isLoading: false,
-  error: null,
+export const FavouritesContext = createContext<FavouritesContextType>({
+  favourites: [],
+  addToFavourites: () => {},
+  removeFromFavourites: () => {},
 });
 
-export const CatsContextProvider = ({ children }) => {
-  const [cats, setCats] = useState<CatsDataTransformed[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+export const FavouritesContextProvider = ({ children }) => {
+  const [favourites, setFavourites] = useState<CatsDataTransformed[]>([]);
 
-  const getCats = async () => {
-    setIsLoading(true);
-    setCats([]);
+  const loadFavourites = async () => {
+    setFavourites([]);
 
     try {
-      const fetchedCatsImages = await getCatsDataRequest();
-      const catsTransformed = await catsDataTransform(fetchedCatsImages);
-      setIsLoading(false);
-      setCats(catsTransformed);
-    } catch (error) {
-      setIsLoading(false);
-      setError(error);
+      const fetchedImages = await getFavoritesRequest();
+      const catsTransformed = await catsDataTransform(fetchedImages);
+
+      setFavourites(catsTransformed);
+    } catch (error) {}
+  };
+
+  const add = async (item: CatsDataTransformed) => {
+    try {
+      console.log("item iddddd", item);
+      const response = await addImageToFavoritesRequest(item.id);
+      loadFavourites();
+      console.log("response", response);
+    } catch (e) {
+      console.log("error storing", e);
+    }
+  };
+
+  const remove = async (item: CatsDataTransformed) => {
+    try {
+      const response = await removeImageToFavoritesRequest(item.id);
+      loadFavourites();
+      console.log("response", response);
+    } catch (e) {
+      console.log("error storing", e);
     }
   };
 
   useEffect(() => {
-    getCats();
+    console.log("heeeeeey loadFAV");
+    loadFavourites();
   }, []);
 
   return (
-    <CatsContext.Provider
+    <FavouritesContext.Provider
       value={{
-        cats,
-        isLoading,
-        error,
+        favourites,
+        addToFavourites: add,
+        removeFromFavourites: remove,
       }}>
       {children}
-    </CatsContext.Provider>
+    </FavouritesContext.Provider>
   );
 };

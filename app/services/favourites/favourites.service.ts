@@ -1,70 +1,81 @@
-import camelize from "camelize";
+import Constants from "expo-constants";
+import { CatsDataTransformed } from "~infrastructure/types/interface";
 
-import {
-  ImageDataRequest,
-  CatsDataTransformed,
-} from "../../infrastructure/types/interface";
+const CAT_API_KEY = Constants.expoConfig?.extra?.catApiKey;
+const API_URL = Constants.expoConfig?.extra?.apiUrl;
 
-const CAT_API_KEY =
-  "live_QCGCfufAhs7kj2iWCxUEyRVITTkk91tDv0N9Sbm7ENZhZ7vVVZgTEAmNyoT9Sd5S";
+interface UploadResponse {
+  message: string;
+  id: number;
+}
 
-export const uploadImageCatRequest = async (): Promise<ImageDataRequest> => {
-  const formData = new FormData();
-  // formData.append("file", {
-  //   uri: selectedImage,
-  // });
-
+export const getFavoritesRequest = async (): Promise<CatsDataTransformed[]> => {
   try {
-    const response = await fetch("https://api.thecatapi.com/v1/images/upload", {
-      method: "POST",
+    const response = await fetch(`${API_URL}favourites`, {
+      method: "GET",
       headers: {
-        "Content-Type": "multipart/form-data",
-        "x-api-key": CAT_API_KEY, // Pass the API key in the header
+        "x-api-key": `${CAT_API_KEY}`,
       },
-      body: formData,
     });
 
     if (!response.ok) {
-      throw new Error("Error uploading the image");
+      throw new Error("Error to GET favorites!");
     }
 
-    const data: ImageDataRequest = await response.json();
+    const data: CatsDataTransformed[] = await response.json();
     return data;
   } catch (error) {
-    console.log("Error uploading data", error);
+    console.log("Error to GET the favorites", error);
     throw error;
   }
 };
 
-export const getCatsDataRequest = async (): Promise<ImageDataRequest[]> => {
-  try {
-    const response = await fetch(
-      "https://api.thecatapi.com/v1/images/?limit=10&page=0&order=DESC",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "x-api-key": CAT_API_KEY, // Pass the API key in the header
-        },
-      }
-    );
-    if (!response.ok) {
-      throw new Error("Error getting the response");
-    }
-
-    const data: ImageDataRequest[] = await response.json();
-    return data;
-  } catch (error) {
-    console.log("Error fetching data", error);
-    throw error;
-  }
-};
-
-export const catsDataTransform = (
-  results: ImageDataRequest[] = []
-): CatsDataTransformed[] => {
-  const mappedResults = results.map((item) => {
-    return { ...item };
+export const addImageToFavoritesRequest = async (imageId: string) => {
+  console.log("image if", imageId);
+  const rawBody = JSON.stringify({
+    image_id: imageId,
   });
-  return camelize(mappedResults);
+
+  try {
+    const response = await fetch(`${API_URL}favourites`, {
+      method: "POST",
+      headers: {
+        "x-api-key": `${CAT_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: rawBody,
+    });
+
+    if (!response.ok) {
+      throw new Error("Error to add the image to the favorites!");
+    }
+
+    const data: UploadResponse = await response.json();
+    console.log("data", data);
+    return data;
+  } catch (error) {
+    console.log("Error to add the image to the favorites", error);
+    throw error;
+  }
+};
+
+export const removeImageToFavoritesRequest = async (imageId: string) => {
+  try {
+    const response = await fetch(`${API_URL}favourites/${imageId}`, {
+      method: "DELETE",
+      headers: {
+        "x-api-key": `${CAT_API_KEY}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Error to delete from favorite!");
+    }
+
+    const data: UploadResponse = await response.json();
+    return data;
+  } catch (error) {
+    console.log("Error to delete the image from favorites", error);
+    throw error;
+  }
 };

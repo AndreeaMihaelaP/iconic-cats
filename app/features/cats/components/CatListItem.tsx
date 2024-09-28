@@ -7,23 +7,20 @@ import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import { colors } from "~infrastructure/theme/colors";
 
 import { catListItemStyles } from "./CatListItem.styles";
+import { CatsDataTransformed } from "~infrastructure/types/interface";
+import { Favourite } from "~features/favorites/components/Favorite";
 
 const defaultImage = require("../../../infrastructure/assets/content-placeholder.png");
 
-const FavoriteButton = styled(TouchableOpacity)`
-  position: absolute;
-  top: 20px;
-  right: 15px;
-  z-index: 19;
-`;
+interface CatListItemProps {
+  item: CatsDataTransformed;
+}
 
-export const CatListItem = ({ item }) => {
+export const CatListItem = ({ item }: CatListItemProps) => {
   return (
     <View style={catListItemStyles.card}>
       <View style={catListItemStyles.cardTop}>
-        <FavoriteButton onPress={() => {}}>
-          <Icon name="heart" size={30} color="white" />
-        </FavoriteButton>
+        <Favourite item={item} />
 
         <Image
           alt="Cat"
