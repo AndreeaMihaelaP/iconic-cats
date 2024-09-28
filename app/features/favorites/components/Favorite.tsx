@@ -22,9 +22,6 @@ export const Favourite = ({ item }: FavouriteProps) => {
   const { favourites, addToFavourites, removeFromFavourites } =
     useContext(FavouritesContext);
 
-  console.log("favourites ->>", favourites);
-  console.log("item", item);
-
   const favourite = favourites.find((fav) => fav.image.id === item.id);
 
   return (

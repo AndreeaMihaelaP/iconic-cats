@@ -8,7 +8,6 @@ import Constants from "expo-constants";
 
 const CAT_API_KEY = Constants.expoConfig?.extra?.catApiKey;
 const API_URL = Constants.expoConfig?.extra?.apiUrl;
-console.log("api rul", API_URL);
 
 export const uploadImageCatRequest = async (
   url: string
@@ -61,7 +60,6 @@ export const getCatsDataRequest = async (): Promise<ImageDataRequest[]> => {
     const data: ImageDataRequest[] = await response.json();
     return data;
   } catch (error) {
-    console.log("Error fetching data", error);
     throw error;
   }
 };

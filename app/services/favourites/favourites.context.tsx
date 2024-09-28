@@ -35,7 +35,6 @@ export const FavouritesContextProvider = ({ children }) => {
 
   const add = async (item: CatsDataTransformed) => {
     try {
-      console.log("item iddddd", item);
       const response = await addImageToFavoritesRequest(item.id);
       loadFavourites();
       console.log("response", response);
@@ -55,7 +54,6 @@ export const FavouritesContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("heeeeeey loadFAV");
     loadFavourites();
   }, []);
 

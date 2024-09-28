@@ -12,7 +12,6 @@ interface ErrorProps {
 const CustomError: React.FC<ErrorProps> = ({ message, refresh, dismiss }) => {
   const [visible, setVisible] = useState(true);
 
-  console.log("visible, vis", visible);
   const handleDismiss = () => {
     setVisible(false);
   };

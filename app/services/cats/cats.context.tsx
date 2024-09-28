@@ -50,16 +50,13 @@ export const CatsContextProvider = ({ children }: CatsContextProviderProps) => {
 
   const uploadCatImage = async (selectedImage: string) => {
     setIsLoading(true);
-    console.log("heyee");
+
     try {
       const uploadCatImageResponse = await uploadImageCatRequest(selectedImage);
-      console.log("uploadCatImageResponse", uploadCatImageResponse);
 
       if (uploadCatImageResponse) {
         getCats();
       }
-
-      console.log("uploadCatImageResponse", uploadCatImageResponse);
     } catch (error) {
       setIsLoading(false);
       setUploadStatus(error?.message);

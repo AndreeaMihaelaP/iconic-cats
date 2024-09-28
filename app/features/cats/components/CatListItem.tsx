@@ -9,6 +9,7 @@ import { colors } from "~infrastructure/theme/colors";
 import { catListItemStyles } from "./CatListItem.styles";
 import { CatsDataTransformed } from "~infrastructure/types/interface";
 import { Favourite } from "~features/favorites/components/Favorite";
+import { Votes } from "./Votes";
 
 const defaultImage = require("../../../infrastructure/assets/content-placeholder.png");
 
@@ -34,15 +35,7 @@ export const CatListItem = ({ item }: CatListItemProps) => {
       </View>
 
       <View style={catListItemStyles.cardBody}>
-        <View style={catListItemStyles.cardHeader}>
-          <View style={catListItemStyles.subHeaderItem}>
-            <AntDesignIcon name="like2" size={40} color={colors.white} />
-            <View style={{ padding: 10 }}>
-              <AntDesignIcon name="dislike2" size={20} color={colors.white} />
-            </View>
-          </View>
-          <Text style={catListItemStyles.cardScore}>Score: 100</Text>
-        </View>
+        <Votes item={item} />
         <Text style={catListItemStyles.cardDescription}>
           Cast your vote!!! Only ONE answer is correct!
           MWAHAHAHAHHAHAHAAHAHAHHAHA

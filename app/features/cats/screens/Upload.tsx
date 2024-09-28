@@ -34,8 +34,6 @@ export const UploadScreen: React.FC = () => {
       quality: 1,
     });
 
-    console.log("pickerResult", pickerResult);
-
     if (!pickerResult.canceled) {
       setSelectedImage(pickerResult.assets[0].uri); // URI of the selected image
     }
@@ -56,7 +54,6 @@ export const UploadScreen: React.FC = () => {
     }
   }, [selectedImage]);
 
-  console.log("selectedImage", selectedImage);
   return (
     <View>
       <View>

@@ -31,7 +31,6 @@ export const getFavoritesRequest = async (): Promise<CatsDataTransformed[]> => {
 };
 
 export const addImageToFavoritesRequest = async (imageId: string) => {
-  console.log("image if", imageId);
   const rawBody = JSON.stringify({
     image_id: imageId,
   });
@@ -51,7 +50,6 @@ export const addImageToFavoritesRequest = async (imageId: string) => {
     }
 
     const data: UploadResponse = await response.json();
-    console.log("data", data);
     return data;
   } catch (error) {
     console.log("Error to add the image to the favorites", error);
