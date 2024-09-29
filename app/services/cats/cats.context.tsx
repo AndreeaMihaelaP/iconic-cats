@@ -35,7 +35,6 @@ export const CatsContextProvider = ({ children }: CatsContextProviderProps) => {
 
   const getCats = async () => {
     setIsLoading(true);
-    setCats([]);
 
     try {
       const fetchedCatsImages = await getCatsDataRequest();
