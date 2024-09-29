@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Text, View } from "react-native";
 
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
@@ -14,18 +14,20 @@ interface CatListItemProps {
 
 export const Votes = ({ item }: CatListItemProps) => {
   const { votes, scoreTheCat } = useContext(VotesContext);
-  const [voteCount, setVoteCount] = useState(0);
 
-  const votesPerCat = votes.filter((vote) => vote?.imageId === item.id);
-  console.log("votesPerCat ->>", votesPerCat);
+  const voteUp = () => scoreTheCat(item, 1);
+  const voteDown = () => scoreTheCat(item, -1);
 
-  const highestVote = votesPerCat.reduce((max, current) => {
-    return current.value > max.value ? current : max;
-  }, votesPerCat[0])?.value;
-
-  useEffect(() => {
-    scoreTheCat(item, voteCount);
-  }, [voteCount]);
+  const score = useMemo(
+    () =>
+      votes.reduce((total, vote) => {
+        if (vote?.image_id === item.id) {
+          return total + vote.value;
+        }
+        return total;
+      }, 0),
+    [item.id, votes]
+  );
 
   return (
     <View style={catListItemStyles.cardHeader}>
@@ -34,18 +36,18 @@ export const Votes = ({ item }: CatListItemProps) => {
           name="like1"
           size={40}
           color={colors.white}
-          onPress={() => setVoteCount(voteCount + 1)}
+          onPress={voteUp}
         />
         <View style={{ padding: 10 }}>
           <AntDesignIcon
             name="dislike1"
             size={20}
             color={colors.white}
-            onPress={() => setVoteCount(voteCount - 1)}
+            onPress={voteDown}
           />
         </View>
       </View>
-      <Text style={catListItemStyles.cardScore}>Score: {highestVote}</Text>
+      <Text style={catListItemStyles.cardScore}>Score: {score} </Text>
     </View>
   );
 };

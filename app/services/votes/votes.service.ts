@@ -4,15 +4,16 @@ import { CatsDataTransformed } from "~infrastructure/types/interface";
 const CAT_API_KEY = Constants.expoConfig?.extra?.catApiKey;
 const API_URL = Constants.expoConfig?.extra?.apiUrl;
 
-interface VoteResponse {
+export interface VoteResponse {
   image_id: string;
   sub_id?: string;
   value: number;
+  message: string;
 }
 
-export const getVotesRequest = async (): Promise<CatsDataTransformed[]> => {
+export const getVotesRequest = async (): Promise<VoteResponse[]> => {
   try {
-    const response = await fetch(`${API_URL}votes`, {
+    const response = await fetch(`${API_URL}votes?order=DESC`, {
       method: "GET",
       headers: {
         "x-api-key": `${CAT_API_KEY}`,
@@ -23,7 +24,7 @@ export const getVotesRequest = async (): Promise<CatsDataTransformed[]> => {
       throw new Error("Error to GET votes!");
     }
 
-    const data: CatsDataTransformed[] = await response.json();
+    const data: VoteResponse[] = await response.json();
     return data;
   } catch (error) {
     console.log("Error to GET the votes", error);

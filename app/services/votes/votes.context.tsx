@@ -1,11 +1,15 @@
 import React, { useState, createContext, useEffect } from "react";
-import { votingRequest, getVotesRequest } from "./votes.service";
+import { votingRequest, getVotesRequest, VoteResponse } from "./votes.service";
 import { CatsDataTransformed } from "~infrastructure/types/interface";
 import { catsDataTransform } from "~services/cats/cats.service";
 
 export interface VotesContextType {
-  votes: CatsDataTransformed[];
+  votes: VoteResponse[];
   scoreTheCat: (item: CatsDataTransformed, value: number) => void;
+}
+
+interface VotesContextProviderProps {
+  children: any;
 }
 
 export const VotesContext = createContext<VotesContextType>({
@@ -13,29 +17,31 @@ export const VotesContext = createContext<VotesContextType>({
   scoreTheCat: (item: CatsDataTransformed, value: number) => {},
 });
 
-export const VotesContextProvider = ({ children }) => {
-  const [votes, setVotes] = useState<CatsDataTransformed[]>([]);
-
-  const loadVotes = async () => {
-    setVotes([]);
-
-    try {
-      const fetchedImages = await getVotesRequest();
-      const catsTransformed = await catsDataTransform(fetchedImages);
-
-      setVotes(catsTransformed);
-    } catch (error) {}
-  };
+export const VotesContextProvider = ({
+  children,
+}: VotesContextProviderProps) => {
+  const [votes, setVotes] = useState<VoteResponse[]>([]);
 
   const vote = async (item: CatsDataTransformed, value: number) => {
     try {
-      const response = await votingRequest(item.id, value);
-      loadVotes();
+      const voteResponse = await votingRequest(item.id, value);
+      if (voteResponse.message === "SUCCESS") {
+        getVotes();
+      }
     } catch (e) {}
   };
 
+  const getVotes = async () => {
+    try {
+      const votes = await getVotesRequest();
+      if (votes.length) {
+        setVotes(votes);
+      }
+    } catch (error) {}
+  };
+
   useEffect(() => {
-    loadVotes();
+    getVotes();
   }, []);
 
   return (
