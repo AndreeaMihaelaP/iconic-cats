@@ -1,10 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, View, Image } from "react-native";
-import styled from "styled-components/native";
-
-import Icon from "react-native-vector-icons/FontAwesome5";
-import AntDesignIcon from "react-native-vector-icons/AntDesign";
-import { colors } from "~infrastructure/theme/colors";
+import { Text, View, Image } from "react-native";
 
 import { catListItemStyles } from "./CatListItem.styles";
 import { CatsDataTransformed } from "~infrastructure/types/interface";

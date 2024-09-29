@@ -1,16 +1,20 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { ReactNode, useState, createContext, useEffect } from "react";
 import {
+  ImageResponse,
   addImageToFavoritesRequest,
   getFavoritesRequest,
   removeImageToFavoritesRequest,
 } from "./favourites.service";
 import { CatsDataTransformed } from "~infrastructure/types/interface";
-import { catsDataTransform } from "~services/cats/cats.service";
 
 export interface FavouritesContextType {
-  favourites: CatsDataTransformed[];
+  favourites: ImageResponse[];
   addToFavourites: (item: CatsDataTransformed) => void;
-  removeFromFavourites: (item: CatsDataTransformed) => void;
+  removeFromFavourites: (item: ImageResponse) => void;
+}
+
+interface FavouritesContextProviderProps {
+  children: ReactNode;
 }
 
 export const FavouritesContext = createContext<FavouritesContextType>({
@@ -19,17 +23,17 @@ export const FavouritesContext = createContext<FavouritesContextType>({
   removeFromFavourites: () => {},
 });
 
-export const FavouritesContextProvider = ({ children }) => {
-  const [favourites, setFavourites] = useState<CatsDataTransformed[]>([]);
+export const FavouritesContextProvider = ({
+  children,
+}: FavouritesContextProviderProps) => {
+  const [favourites, setFavourites] = useState<ImageResponse[]>([]);
 
   const loadFavourites = async () => {
     setFavourites([]);
 
     try {
       const fetchedImages = await getFavoritesRequest();
-      const catsTransformed = await catsDataTransform(fetchedImages);
-
-      setFavourites(catsTransformed);
+      setFavourites(fetchedImages);
     } catch (error) {}
   };
 
@@ -43,7 +47,7 @@ export const FavouritesContextProvider = ({ children }) => {
     }
   };
 
-  const remove = async (item: CatsDataTransformed) => {
+  const remove = async (item: ImageResponse) => {
     try {
       const response = await removeImageToFavoritesRequest(item.id);
       loadFavourites();

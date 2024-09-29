@@ -4,7 +4,7 @@ import { ActivityIndicator, View, StatusBar, Animated } from "react-native";
 import { CatsContextType, CatsContext } from "~services/cats/cats.context";
 
 import CustomError from "~components/CustomError";
-import { Background } from "../../../components/Background";
+import { Background } from "~components/Background";
 
 import { CatListItem } from "../components/CatListItem";
 import { UploadScreen } from "./Upload";

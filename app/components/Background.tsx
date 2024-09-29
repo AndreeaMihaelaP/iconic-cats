@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { View, Animated, Dimensions, StyleSheet } from "react-native";
 import { CatsDataTransformed } from "~infrastructure/types/interface";
 

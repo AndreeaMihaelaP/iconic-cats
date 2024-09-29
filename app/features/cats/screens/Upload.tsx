@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Image, Pressable, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 import * as ImagePicker from "expo-image-picker";
 
@@ -14,7 +14,7 @@ import CustomError from "~components/CustomError";
 export const UploadScreen: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<null | string>(null);
 
-  const { cats, isLoading, error, uploadCatImage, uploadStatus } =
+  const { isLoading, error, uploadCatImage, uploadStatus } =
     useContext<CatsContextType>(CatsContext);
 
   const pickImage = async () => {

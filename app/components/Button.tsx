@@ -20,8 +20,7 @@ const Button: React.FC<ButtonProps> = ({
     <Pressable
       style={buttonStyles.container(disabled)}
       onPress={onPress}
-      disabled={disabled}
-    >
+      disabled={disabled}>
       <View style={{ flexDirection: "row" }}>
         {title ? <Text style={buttonStyles.text}>{title}</Text> : null}
         {icon ? icon : null}
