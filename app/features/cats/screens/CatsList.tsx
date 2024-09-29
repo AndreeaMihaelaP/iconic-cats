@@ -1,5 +1,11 @@
 import React, { useContext } from "react";
-import { ActivityIndicator, View, StatusBar, Animated } from "react-native";
+import {
+  ActivityIndicator,
+  View,
+  StatusBar,
+  Animated,
+  Text,
+} from "react-native";
 
 import { CatsContextType, CatsContext } from "~services/cats/cats.context";
 
@@ -28,6 +34,12 @@ export const CatsListScreen: React.FC = () => {
       ) : null}
       {error ? (
         <CustomError message="An error occurred. Please try again later." />
+      ) : null}
+
+      {!cats.length ? (
+        <Text style={catsListStyles.noImages}>
+          No cats yet 🐈🐈🐈 Use the + button below to start your collection.
+        </Text>
       ) : null}
 
       <>

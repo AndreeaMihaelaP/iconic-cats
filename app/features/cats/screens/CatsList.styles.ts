@@ -28,6 +28,12 @@ const title: TextStyle = {
   textTransform: "uppercase",
 };
 
+const noImages: TextStyle = {
+  fontSize: 20,
+  color: colors.white,
+  padding: 24,
+};
+
 const loadingContainer: ViewStyle = {
   height: "90%",
   alignItems: "center",
@@ -38,5 +44,6 @@ export const catsListStyles = {
   container,
   itemContainer,
   title,
+  noImages,
   loadingContainer,
 };
