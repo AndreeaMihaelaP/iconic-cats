@@ -5,10 +5,6 @@ This project is like a cat photo album built with React Native and TypeScript, u
 ## Demo
 <img width="300" alt="image" src="https://github.com/user-attachments/assets/74dc927b-974d-4622-b5d5-ea2057daf012">
 
-## Screenshots
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/8f9e663b-bf6b-4e4d-973b-f24864b7cae1">
-<img width="286" alt="image" src="https://github.com/user-attachments/assets/082c4b2d-dc9f-4da2-b761-5451e700158b">
-
 ## Requirements
 
 - Node.js
@@ -83,6 +79,9 @@ npm run start
 
 3. Press `a` to open the app in the Android simulator.
 
+## Screenshots
+<img width="400" alt="image" src="https://github.com/user-attachments/assets/8f9e663b-bf6b-4e4d-973b-f24864b7cae1">
+<img width="286" alt="image" src="https://github.com/user-attachments/assets/082c4b2d-dc9f-4da2-b761-5451e700158b">
 
 
 
