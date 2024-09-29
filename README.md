@@ -30,11 +30,10 @@ cd iconic-cats && npm install
 3. Setup Environment Variables
 - Create a new `.env` file by copying from the `env_copy` file:
 
-  ```bash
+```bash
   cp env_copy .env
 ```
-Add your own CAT_API_KEY to the .env file.
-You can generate a new API key by signing up at [Cat API](https://thecatapi.com/).
+Add your own CAT_API_KEY to the .env file. You can generate a new API key by signing up at [Cat API](https://thecatapi.com/)
 
 ## Running the App
 
