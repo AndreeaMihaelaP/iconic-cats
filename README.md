@@ -3,7 +3,7 @@
 This project is like a cat photo album built with React Native and TypeScript, using the [Cat API](https://thecatapi.com/). Users can upload cat images, view their collection, favourite or unfavourite cats, and vote on each one to find the best. The app uses Context API to keep the code organized and improve the user experience.
 
 ## Demo
-<img width="300" alt="image" src="https://github.com/user-attachments/assets/a5033060-dc33-4c74-b295-4c19aa7ef945">
+https://github.com/user-attachments/assets/a5033060-dc33-4c74-b295-4c19aa7ef945
 
 ## Screenshots
 
