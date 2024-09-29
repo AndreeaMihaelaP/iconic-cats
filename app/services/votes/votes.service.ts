@@ -38,7 +38,6 @@ export const votingRequest = async (imageId: string, value: number) => {
     value: value,
   });
 
-  console.log("helloooo");
   try {
     const response = await fetch(`${API_URL}votes`, {
       method: "POST",

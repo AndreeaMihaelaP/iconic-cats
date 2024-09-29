@@ -1,50 +1,88 @@
-# Welcome to your Expo app 👋
+## Introduction
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project is like a cat photo album built with React Native and TypeScript, using the [Cat API](https://thecatapi.com/). Users can upload cat images, view their collection, favourite or unfavourite cats, and vote on each one to find the best. The app uses Context API to keep the code organized and improve the user experience.
 
-## Get started
+## Demo
 
-1. Install dependencies
 
-   ```bash
-   npm install
-   ```
+## Screenshots
 
-2. Start the app
 
-   ```bash
-    npx expo start
-   ```
+## Requirements
 
-In the output, you'll find options to open the app in a
+- Node.js
+- Git
+- [npm](https://www.npmjs.com/)
+- Expo Go for running on physical devices ([Get started with Expo](https://docs.expo.dev/get-started/create-a-project/#open-the-app-on-your-device))
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Installation
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+1. Clone the repository:
+ ```bash
+git clone https://github.com/AndreeaMihaelaP/iconic-cats.git
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install the dependencies:
+```bash
+cd iconic-cats && npm install
+```
 
-## Learn more
+3. Setup Environment Variables
+- Create a new `.env` file by copying from the `env_copy` file:
 
-To learn more about developing your project with Expo, look at the following resources:
+  ```bash
+  cp env_copy .env
+```
+Add your own CAT_API_KEY to the .env file.
+You can generate a new API key by signing up at [Cat API](https://thecatapi.com/).
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Running the App
 
-## Join the community
+### On iOS Simulator
 
-Join our community of developers creating universal apps.
+1. Navigate to the project directory:
+```bash
+cd iconic-cats
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+2. Start the app:
+```bash
+npm run start
+```
+
+3. Press `i` to open the app in the iOS simulator.
+
+### On Physical Device
+
+1. Ensure Expo Go is installed on your device.
+
+2. Navigate to the project directory:
+```bash
+cd iconic-cats
+```
+
+3. Start the app:
+```bash
+npm run start
+```
+
+3. Scan the QR code using Expo Go on your device.
+
+### On Android Simulator
+
+
+1. Navigate to the project directory:
+```bash
+cd iconic-cats 
+```
+
+2. Start the app:
+```bash
+npm run start
+```
+
+3. Press `a` to open the app in the Android simulator.
+
+
+
+

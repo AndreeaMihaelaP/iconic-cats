@@ -41,7 +41,6 @@ export const FavouritesContextProvider = ({
     try {
       const response = await addImageToFavoritesRequest(item.id);
       loadFavourites();
-      console.log("response", response);
     } catch (e) {
       console.log("error storing", e);
     }
