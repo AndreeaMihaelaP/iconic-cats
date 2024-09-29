@@ -6,8 +6,9 @@ This project is like a cat photo album built with React Native and TypeScript, u
 
 https://github.com/user-attachments/assets/5c058609-8fa7-405c-8a28-8a50c3f1767e
 
-<img width="400" alt="image" src="https://github.com/user-attachments/assets/f60cfb1c-4d36-43da-8979-19c0fa3a6005">
+## Screenshots
 <img width="286" alt="image" src="https://github.com/user-attachments/assets/082c4b2d-dc9f-4da2-b761-5451e700158b">
+<img width="523" alt="image" src="https://github.com/user-attachments/assets/8f9e663b-bf6b-4e4d-973b-f24864b7cae1">
 
 
 ## Requirements
